@@ -1,31 +1,35 @@
-stage('Build') {
-    node {
-       build job: 'MyProject Build', parameters: [string(name: 'Branch', value: "${params.Branch}")]
-    }
-}
-stage('QA') {
-    when { 
-        expression { return params.Environment ==~ /(?i)(QA|UAT|PROD)/ } 
-    }
-    node {
-       build job: 'MyProject Deploy', parameters: [string(name: 'Environment', value: 'QA')]
-    }
-}
-stage('UAT') {
-    when { 
-        expression { return params.Environment ==~ /(?i)(QA|UAT|PROD)/ } 
-    }
-    input 'Do you approve deployment to UAT?'
-    node {
-       build job: 'MyProject Deploy', parameters: [string(name: 'Environment', value: 'UAT')]
-    }
-}
-stage('PROD') {
-    when { 
-        expression { return params.Environment ==~ /(?i)(QA|UAT|PROD)/ } 
-    }
-    input 'Do you approve deployment to PROD?'
-    node{
-        build job: 'MyProject Deploy', parameters: [string(name: 'Environment', value: 'PROD')]
+pipeline {
+    stages {
+        stage('Build') {
+            steps {
+               build job: 'MyProject Build', parameters: [string(name: 'Branch', value: "${params.Branch}")]
+            }
+        }
+        stage('QA') {
+            when { 
+                expression { return params.Environment ==~ /(?i)(QA|UAT|PROD)/ } 
+            }
+            steps {
+               build job: 'MyProject Deploy', parameters: [string(name: 'Environment', value: 'QA')]
+            }
+        }
+        stage('UAT') {
+            when { 
+                expression { return params.Environment ==~ /(?i)(QA|UAT|PROD)/ } 
+            }
+            input 'Do you approve deployment to UAT?'
+            steps {
+               build job: 'MyProject Deploy', parameters: [string(name: 'Environment', value: 'UAT')]
+            }
+        }
+        stage('PROD') {
+            when { 
+                expression { return params.Environment ==~ /(?i)(QA|UAT|PROD)/ } 
+            }
+            input 'Do you approve deployment to PROD?'
+            steps{
+                build job: 'MyProject Deploy', parameters: [string(name: 'Environment', value: 'PROD')]
+            }
+        }
     }
 }
