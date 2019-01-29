@@ -8,6 +8,11 @@ pipeline {
             }
         }
         stage ('UAT') {
+            when {
+                expression {
+                    return (params.Environment ==~ /(?i)(QA|UAT|PROD)/)
+                }
+            }
             input {
                 message 'Do you approve deployment to UAT'
             }
