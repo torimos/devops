@@ -10,7 +10,7 @@ pipeline {
         stage ('UAT') {
             when {
                 expression {
-                    return (params.Environment ==~ /(?i)(QA|UAT|PROD)/)
+                    return (params.Environment ==~ /^(?i)(QA|UAT|PROD)$/)
                 }
             }
             input {
