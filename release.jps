@@ -1,14 +1,33 @@
 #!groovy
-stage('Build') {
-    node {
-       build job: 'MyProject Build', parameters: [string(name: 'Branch', value: "${params.Branch}")]
+pipeline {
+    agent any
+    parameters {
     }
-}
-stage('QA') {
-    when { 
-        expression { return params.Environment ==~ /(?i)(QA|UAT|PROD)/ } 
-    }
-    node {
-       build job: 'MyProject Deploy', parameters: [string(name: 'Environment', value: 'QA')]
+    stages {
+        stage ('Build') {
+            steps {
+                echo "Build ..."
+            }
+        }
+        stage ('Build') {
+            when {
+                expression {
+                    return params.Environment == "DEV"
+                }
+            }
+            steps {
+                echo "Build ..."
+            }
+        }
+        stage ('Build Skipped') {
+            when {
+                expression {
+                    return params.Environment != "DEV"
+                }
+            }
+            steps {
+                echo 'Skipped full build.'
+            }
+        }
     }
 }
