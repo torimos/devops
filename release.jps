@@ -13,9 +13,6 @@ pipeline {
                     return (params.Environment ==~ /^(?i)(QA|UAT|PROD)$/)
                 }
             }
-            input {
-                message 'Do you approve deployment to UAT'
-            }
             steps {
                 echo 'Deploy to UAT.'
             }
