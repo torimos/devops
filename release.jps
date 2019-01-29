@@ -13,6 +13,7 @@ pipeline {
                     return params.Environment ==~ /(?i)(QA|UAT|PROD)/
                 }
             }
+            steps {}
         }
         stage ('Deploy') {
             steps {
