@@ -12,12 +12,12 @@ pipeline {
         }
         stage ('QA') {
             steps {
-                echo 'Deployed to QA.'
+                build job: 'MyProject Deploy', parameters: [string(name: 'Environment', value: 'QA')]
             }
         }
         stage ('Approve: UAT') {
             input {
-                message 'Do you approve deployment to UAT'
+                message 'Are you sure?'
             }
             steps {
                 echo 'Deploy to UAT has been approved.'
@@ -25,12 +25,12 @@ pipeline {
         }
         stage ('UAT') {
             steps {
-                echo 'Deployed to UAT.'
+                build job: 'MyProject Deploy', parameters: [string(name: 'Environment', value: 'UAT')]
             }
         }
         stage ('Approve: PROD') {
             input {
-                message 'Do you approve deployment to PROD'
+                message 'Are you sure?'
             }
             steps {
                 echo 'Deploy to UAPRODT has been approved.'
@@ -38,7 +38,7 @@ pipeline {
         }
         stage ('PROD') {
             steps {
-                echo 'Deployed to PROD.'
+               build job: 'MyProject Deploy', parameters: [string(name: 'Environment', value: 'PROD')]
             }
         }
     }
