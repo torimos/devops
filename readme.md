@@ -22,3 +22,9 @@ Pipeline - "{PROJECT_NAME} Release":
   All further deployments will require approval:
   Build > QA > Approve? > UAT > Approve? > PROD
 
+
+
+
+Jenkins plugins:
+- build-name-setter
+- Extended Choice Parameter Plug-In
