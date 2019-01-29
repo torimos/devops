@@ -13,7 +13,9 @@ pipeline {
                     return params.Environment ==~ /(?i)(QA|UAT|PROD)/
                 }
             }
-            steps {}
+            steps {
+                echo "Approved, proceeding!"
+            }
         }
         stage ('Deploy') {
             steps {
