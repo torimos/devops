@@ -1,14 +1,11 @@
 #!groovy
 pipeline {
     agent any
-    options {
-        skipDefaultCheckout(true)
-    }
     stages {
         stage ('Build') {
             steps {
                 script {
-                    currentBuild.displayName = "${BUILD_NUMBER} ${params.Branch}"
+                    currentBuild.displayName = "#${BUILD_NUMBER} (${params.Branch})"
                 }
                 echo "Build ..."
             }
