@@ -10,14 +10,20 @@ pipeline {
         stage ('Approval') {
             when {
                 expression {
-                    return params.Environment ==~ /(?i)(QA|UAT|PROD)/
+                    return (params.Environment ==~ /(?i)(QA|UAT|PROD)/)
                 }
             }
+            input "Approve?"
             steps {
                 echo "Approved, proceeding!"
             }
         }
         stage ('Deploy') {
+            when {
+                expression {
+                    return (params.Environment ==~ /(?i)(QA|UAT|PROD)/)
+                }
+            }
             steps {
                 echo 'Deploy to PROD.'
             }
