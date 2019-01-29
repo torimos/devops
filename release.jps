@@ -9,24 +9,24 @@ pipeline {
                 echo "Build ..."
             }
         }
-        stage ('Build') {
+        stage ('Deploy') {
             when {
                 expression {
                     return params.Environment == "DEV"
                 }
             }
             steps {
-                echo "Build ..."
+                echo "Deploy ..."
             }
         }
-        stage ('Build Skipped') {
+        stage ('Deploy Skipped') {
             when {
                 expression {
                     return params.Environment != "DEV"
                 }
             }
             steps {
-                echo 'Skipped full build.'
+                echo 'Skipped full Deploy.'
             }
         }
     }
