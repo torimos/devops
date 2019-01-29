@@ -7,14 +7,11 @@ pipeline {
                 echo "Build ..."
             }
         }
-        input('Do you approve deployment to UAT')
         stage ('UAT') {
-            when {
-                expression {
-                    return (params.Environment ==~ /(?i)(QA|UAT|PROD)/)
-                }
+            input {
+                message 'Do you approve deployment to UAT'
             }
-            node {
+            steps {
                 echo 'Deploy to UAT.'
             }
         }
