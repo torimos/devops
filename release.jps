@@ -7,24 +7,16 @@ pipeline {
                 echo "Build ..."
             }
         }
-        stage ('Deploy') {
+        stage ('Approval') {
             when {
                 expression {
-                    return params.Environment == "DEV"
+                    return params.Environment ==~ /(?i)(QA|UAT|PROD)/
                 }
-            }
-            steps {
-                echo "Deploy ..."
             }
         }
-        stage ('Deploy Skipped') {
-            when {
-                expression {
-                    return params.Environment != "DEV"
-                }
-            }
+        stage ('Deploy') {
             steps {
-                echo 'Skipped full Deploy.'
+                echo 'Deploy to PROD.'
             }
         }
     }
