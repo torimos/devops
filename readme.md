@@ -8,6 +8,14 @@ Job - "{PROJECT_NAME} Build":
 
 Job - "{PROJECT_NAME} Deploy":
   This job will be used to deploy pre-built project from artifact name and target environment name for deployment, specified in string parameters of job.
+
+============================================================================
+
+Release build preparation
+RM triggers build with 4release options turned-on.
+Such build will make build and test to ensure that it is stable and will create release branch with specified name, send email with release details and notes :) 
+
+
 ============================================================================
 Pipeline - "{PROJECT_NAME} Release":
   This pipline will use branch name (in parameters) to trigger build and to start deployment to QA.
