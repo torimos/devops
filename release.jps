@@ -13,19 +13,19 @@ pipeline {
                     return (params.Environment ==~ /(?i)(QA|UAT|PROD)/)
                 }
             }
-            input "Approve?"
-            steps {
+            input 'Do you approve deployment to UAT?'
+            node {
                 echo "Approved, proceeding!"
             }
         }
-        stage ('Deploy') {
+        stage ('UAT') {
             when {
                 expression {
                     return (params.Environment ==~ /(?i)(QA|UAT|PROD)/)
                 }
             }
-            steps {
-                echo 'Deploy to PROD.'
+            node {
+                echo 'Deploy to UAT.'
             }
         }
     }
