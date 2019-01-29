@@ -7,12 +7,12 @@ pipeline {
                 echo "Build ..."
             }
         }
-        stage ('Approve: UAT') {
-            when {
-                expression {
-                    return (params.Environment ==~ /^(?i)(QA|UAT|PROD)$/)
-                }
+        stage ('QA') {
+            steps {
+                echo 'Deployed to QA.'
             }
+        }
+        stage ('Approve: UAT') {
             input {
                 message 'Do you approve deployment to UAT'
             }
@@ -21,13 +21,21 @@ pipeline {
             }
         }
         stage ('UAT') {
-            when {
-                expression {
-                    return (params.Environment ==~ /^(?i)(QA|UAT|PROD)$/)
-                }
+            steps {
+                echo 'Deployed to UAT.'
+            }
+        }
+        stage ('Approve: PROD') {
+            input {
+                message 'Do you approve deployment to PROD'
             }
             steps {
-                echo 'Deploy to UAT.'
+                echo 'Deploy to UAPRODT has been approved.'
+            }
+        }
+        stage ('PROD') {
+            steps {
+                echo 'Deployed to PROD.'
             }
         }
     }
