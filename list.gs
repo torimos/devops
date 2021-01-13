@@ -1,4 +1,4 @@
-def gitURL = "https://github.com/torimos/sbox.git"
+def gitURL = "https://github.com/torimos/poc.cicd.sbox.git"
 def command = "git ls-remote -h $gitURL"
 def proc = command.execute()
 proc.waitFor()              
